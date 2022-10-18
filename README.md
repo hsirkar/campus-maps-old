@@ -18,3 +18,7 @@ A social app where college students can create, share, and interact with geograp
 - VSCode
 - Postman
 - Figma/InDesign
+
+## License
+
+Currently proprietary/closed source. May go open-source in the future under MIT.
