@@ -20,6 +20,11 @@ A social app where college students can create, share, and interact with geograp
 - Postman
 - Figma/InDesign
 
+## Development
+
+- This repo is bootstrapped with [Lerna](https://lerna.js.org/) to manage multiple packages within a single repo
+- We follow the [feature branch workflow](https://docs.gitlab.com/ee/gitlab-basics/feature_branch_workflow.html) for updating the codebase
+
 ## License
 
 Currently proprietary/closed source. May go open-source in the future under MIT.
