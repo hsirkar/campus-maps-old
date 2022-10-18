@@ -1,4 +1,6 @@
 # Campus Maps
+![Node.js CI](https://github.com/hsirkar/campus-maps/actions/workflows/node.js.yml/badge.svg)
+
 Like Google My Maps but for college students.
 
 ## Proposal 
