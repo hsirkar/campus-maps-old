@@ -13,6 +13,7 @@ A social app where college students can create, share, and interact with geograp
 - Express.js
 - Heroku
 - AWS AppSync
+- Firebase
 
 ## Development tools
 - VSCode
