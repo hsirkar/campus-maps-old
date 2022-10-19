@@ -1,31 +1,36 @@
 # Campus Maps
+
 ![Node.js CI](https://github.com/hsirkar/campus-maps/actions/workflows/node.js.yml/badge.svg)
 
 Like Google My Maps but for college students.
 
-## Proposal 
+## Proposal
+
 A social app where college students can create, share, and interact with geographical POIs and events on a map of their university campus. Currently planned for UMD and UMBC.
 
 ## Front-end candidates
-- React
-- React Native
+
+-   React
+-   React Native
 
 ## Back-end candidates
-- MongoDB
-- Express.js
-- Heroku
-- AWS AppSync
-- Firebase
+
+-   MongoDB
+-   Express.js
+-   Heroku
+-   AWS AppSync
+-   Firebase
 
 ## Development tools
-- VSCode
-- Postman
-- Figma/InDesign
+
+-   VSCode
+-   Postman
+-   Figma/InDesign
 
 ## Development
 
-- This repo is bootstrapped with [Lerna](https://lerna.js.org/) to manage multiple packages within a single repo
-- We follow the [feature branch workflow](https://docs.gitlab.com/ee/gitlab-basics/feature_branch_workflow.html) for updating the codebase
+-   This repo is bootstrapped with [Lerna](https://lerna.js.org/) to manage multiple packages within a single repo
+-   We follow the [feature branch workflow](https://docs.gitlab.com/ee/gitlab-basics/feature_branch_workflow.html) for updating the codebase
 
 ## License
 
