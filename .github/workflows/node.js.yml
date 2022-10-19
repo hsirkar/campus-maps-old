@@ -4,38 +4,38 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    push:
+        branches: ['main']
+    pull_request:
+        branches: ['main']
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🏗 Setup repo
-      uses: actions/checkout@v3
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 🏗 Setup repo
+              uses: actions/checkout@v3
 
-    - name: 🏗 Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-        cache: 'npm'
+            - name: 🏗 Setup Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16.x
+                  cache: 'npm'
 
-    - name: 🆕 Update npm
-      run: npm install -g npm
+            - name: 🆕 Update npm
+              run: npm install -g npm
 
-    - name: 📦 Install dependencies
-      run: npm ci
+            - name: 📦 Install dependencies
+              run: npm ci
 
-    - name: ✨ Run prettier
-      run: npx prettier --check .
+            - name: ✨ Run prettier
+              run: npx prettier --check .
 
-    - name: 🧹 Run eslint
-      run: npx eslint .
+            - name: 🧹 Run eslint
+              run: npx eslint .
 
-    - name: 🛠️ Build project
-      run: npm run build --if-present
+            - name: 🛠️ Build project
+              run: npm run build --if-present
 
-    - name: 🧪 Run test
-      run: npm test
+            - name: 🧪 Run test
+              run: npm test
