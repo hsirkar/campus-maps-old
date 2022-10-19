@@ -6,8 +6,10 @@
   ],
   "devDependencies": {
     "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react": "^7.31.10",
-    "lerna": "^6.0.1"
+    "lerna": "^6.0.1",
+    "prettier": "2.7.1"
   },
   "scripts": {
     "test": "cd ./packages/cm-web && npm run test"
