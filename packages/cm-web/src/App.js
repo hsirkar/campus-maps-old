@@ -14,23 +14,22 @@ import {
     Heading,
     Image,
     Text,
-    Icon
+    Icon,
 } from '@chakra-ui/react';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import dayjs from "dayjs";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import dayjs from 'dayjs';
+import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { BiComment } from 'react-icons/bi';
-import { BsFillCalendarDateFill } from 'react-icons/bs'
+import { BsFillCalendarDateFill } from 'react-icons/bs';
 
 import sample from './sample';
 
-import relativeTime from "dayjs/plugin/relativeTime";
+import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 const MAPBOX_TOKEN =
     'pk.eyJ1IjoicmFrcmlzaCIsImEiOiJjamptczYxOGMzc3dzM3BvbDB0andscXdwIn0.GY-HcAV_MakM6gwzSS17Fg';
-
 
 function App() {
     const [markers, setMarkers] = React.useState(sample);
@@ -76,48 +75,59 @@ function App() {
                         longitude={Number(popupInfo.longitude)}
                         latitude={Number(popupInfo.latitude)}
                         onClose={() => setPopupInfo(null)}>
-
                         <Box>
-                            <Image src="https://picsum.photos/500/300" borderRadius="lg" />
+                            <Image
+                                src="https://picsum.photos/500/300"
+                                borderRadius="lg"
+                            />
 
                             <Box pt={4}>
-                                <Box display='flex' alignItems='baseline'>
-                                    <Badge borderRadius='full' px='2' colorScheme='teal'>
+                                <Box display="flex" alignItems="baseline">
+                                    <Badge
+                                        borderRadius="full"
+                                        px="2"
+                                        colorScheme="teal">
                                         New
                                     </Badge>
-                                    <Text
-                                        color="gray.500"
-                                        ml={1}>
-                                            {popupInfo.time.fromNow()} &bull; {popupInfo.user}
+                                    <Text color="gray.500" ml={1}>
+                                        {popupInfo.time.fromNow()} &bull;{' '}
+                                        {popupInfo.user}
                                     </Text>
                                 </Box>
 
-                                <Box
-                                    mt='2'
-                                    lineHeight='tight'
-                                    noOfLines={1}>
+                                <Box mt="2" lineHeight="tight" noOfLines={1}>
                                     <Heading size="xs">
                                         {popupInfo.title}
                                     </Heading>
                                 </Box>
-                                
+
                                 <Box color="gray.500">
                                     <Icon as={BsFillCalendarDateFill} mr={1} />
                                     {popupInfo.eventDate.fromNow()}
                                 </Box>
 
                                 <Box>
-                                    <Text>
-                                        {popupInfo.description}
-                                    </Text>
+                                    <Text>{popupInfo.description}</Text>
                                 </Box>
 
-                                <Box display='flex' mt='2' alignItems='center'>
-                                    <Button color="gray.600" fontSize={13} fontWeight={400} leftIcon={<FaRegHeart />} size="xs" variant="ghost">
+                                <Box display="flex" mt="2" alignItems="center">
+                                    <Button
+                                        color="gray.600"
+                                        fontSize={13}
+                                        fontWeight={400}
+                                        leftIcon={<FaRegHeart />}
+                                        size="xs"
+                                        variant="ghost">
                                         {popupInfo.likes}
                                     </Button>
-                                    
-                                    <Button color="gray.600" fontSize={13} fontWeight={400} leftIcon={<BiComment />} size="xs" variant="ghost">
+
+                                    <Button
+                                        color="gray.600"
+                                        fontSize={13}
+                                        fontWeight={400}
+                                        leftIcon={<BiComment />}
+                                        size="xs"
+                                        variant="ghost">
                                         {popupInfo.comments}
                                     </Button>
                                 </Box>
