@@ -12,17 +12,18 @@ import {
     Button,
     ChakraProvider,
     Heading,
-    IconButton,
     Image,
     Text,
     Icon
 } from '@chakra-ui/react';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { CloseIcon, SearchIcon, StarIcon } from '@chakra-ui/icons';
 import dayjs from "dayjs";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { BiComment } from 'react-icons/bi'
+import { BiComment } from 'react-icons/bi';
+import { BsFillCalendarDateFill } from 'react-icons/bs'
+
+import sample from './sample';
 
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
@@ -32,17 +33,7 @@ const MAPBOX_TOKEN =
 
 
 function App() {
-    const [markers, setMarkers] = React.useState([{
-        longitude: -76.936,
-        latitude: 38.985,
-        title: 'Hallowen Party at ZTA',
-        description: 'Be there or be 🎃',
-        user: 'bwang22',
-        time: dayjs().subtract(5, 'min'),
-        likes: 194,
-        comments: 6,
-    }]);
-
+    const [markers, setMarkers] = React.useState(sample);
     const [popupInfo, setPopupInfo] = React.useState(null);
 
     const pins = React.useMemo(() =>
@@ -82,14 +73,12 @@ function App() {
 
                 {popupInfo && (
                     <Popup
-                        anchor="top"
                         longitude={Number(popupInfo.longitude)}
                         latitude={Number(popupInfo.latitude)}
                         onClose={() => setPopupInfo(null)}>
 
-
                         <Box>
-                            <Image src="https://picsum.photos/400/200" borderRadius="lg" />
+                            <Image src="https://picsum.photos/500/300" borderRadius="lg" />
 
                             <Box pt={4}>
                                 <Box display='flex' alignItems='baseline'>
@@ -99,7 +88,7 @@ function App() {
                                     <Text
                                         color="gray.500"
                                         ml={1}>
-                                            {popupInfo.time.fromNow(true)} &bull; {popupInfo.user}
+                                            {popupInfo.time.fromNow()} &bull; {popupInfo.user}
                                     </Text>
                                 </Box>
 
@@ -110,6 +99,11 @@ function App() {
                                     <Heading size="xs">
                                         {popupInfo.title}
                                     </Heading>
+                                </Box>
+                                
+                                <Box color="gray.500">
+                                    <Icon as={BsFillCalendarDateFill} mr={1} />
+                                    {popupInfo.eventDate.fromNow()}
                                 </Box>
 
                                 <Box>
@@ -129,27 +123,6 @@ function App() {
                                 </Box>
                             </Box>
                         </Box>
-
-
-                        {/* <Box
-                            p="1"
-                            style={{ width: '200px', display: 'relative' }}>
-                            <IconButton
-                                style={{
-                                    display: 'absolute',
-                                    top: 0,
-                                    right: 0,
-                                }}
-                                icon={<CloseIcon />}
-                                size="xs"
-                                variant="ghost"
-                                onClick={() => setPopupInfo(null)}
-                            />
-                            <Image src="https://picsum.photos/300/200" />
-
-                            <Heading size="xs">{popupInfo.title}</Heading>
-                            <Text>{popupInfo.description}</Text>
-                        </Box> */}
                     </Popup>
                 )}
             </Map>
