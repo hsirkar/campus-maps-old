@@ -4,6 +4,7 @@ import Map, {
     Popup,
     NavigationControl,
     ScaleControl,
+    AttributionControl,
 } from 'react-map-gl';
 
 import {
@@ -19,11 +20,13 @@ import {
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import dayjs from 'dayjs';
-import { FaRegHeart, FaHeart } from 'react-icons/fa';
+import { FaRegHeart, FaRegCalendar } from 'react-icons/fa';
 import { BiComment } from 'react-icons/bi';
 import { BsFillCalendarDateFill } from 'react-icons/bs';
 
+
 import sample from './sample';
+import theme from './theme';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
@@ -32,7 +35,7 @@ const MAPBOX_TOKEN =
     'pk.eyJ1IjoicmFrcmlzaCIsImEiOiJjamptczYxOGMzc3dzM3BvbDB0andscXdwIn0.GY-HcAV_MakM6gwzSS17Fg';
 
 function App() {
-    const [markers, setMarkers] = React.useState(sample);
+    const [markers] = React.useState(sample);
     const [popupInfo, setPopupInfo] = React.useState(null);
 
     const pins = React.useMemo(() =>
@@ -49,11 +52,10 @@ function App() {
                     setPopupInfo(marker);
                 }}
             />
-        ))
-    );
+        )), [markers]);
 
     return (
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
             <Map
                 initialViewState={{
                     latitude: 38.9869,
@@ -64,9 +66,14 @@ function App() {
                 maxZoom={17}
                 style={{ width: '100vw', height: '100vh' }}
                 mapStyle="mapbox://styles/mapbox/streets-v11"
-                mapboxAccessToken={MAPBOX_TOKEN}>
+                mapboxAccessToken={MAPBOX_TOKEN}
+                attributionControl={false}
+                localFontFamily="Inter, sans-serif">
                 <NavigationControl position="top-left" />
                 <ScaleControl />
+                
+                <AttributionControl
+                    customAttribution="&copy; 2022 campus-maps" compact={true} />
 
                 {pins}
 
@@ -76,38 +83,49 @@ function App() {
                         latitude={Number(popupInfo.latitude)}
                         onClose={() => setPopupInfo(null)}>
                         <Box>
-                            <Image
+                            {/* <Image
                                 src="https://picsum.photos/500/300"
                                 borderRadius="lg"
-                            />
+                            /> */}
 
-                            <Box pt={4}>
+                            <Box>
                                 <Box display="flex" alignItems="baseline">
-                                    <Badge
+                                    {/* <Badge
                                         borderRadius="full"
                                         px="2"
                                         colorScheme="teal">
                                         New
-                                    </Badge>
-                                    <Text color="gray.500" ml={1}>
-                                        {popupInfo.time.fromNow()} &bull;{' '}
-                                        {popupInfo.user}
-                                    </Text>
+                                    </Badge> */}
+
+                                    {/* <Box as='span' color="gray.500" ml={0}>
+                                        <Icon as={FaRegCalendar} mr={1} />
+                                        {popupInfo.eventDate.fromNow()}
+                                    </Box> */}
                                 </Box>
 
-                                <Box mt="2" lineHeight="tight" noOfLines={1}>
-                                    <Heading size="xs">
-                                        {popupInfo.title}
-                                    </Heading>
+                                <Box
+                                    mt={1}
+                                    mb={1}
+                                    fontWeight="semibold"
+                                    as="h4"
+                                    lineHeight="tight"
+                                    noOfLines={2}
+                                    fontSize="md">
+                                    {popupInfo.title}
                                 </Box>
 
+
+                                <Box
+                                    lineHeight={1.4}
+                                    noOfLines={3}
+                                    mb={1}>
+                                    {popupInfo.description}
+                                </Box>
+
+                                
                                 <Box color="gray.500">
-                                    <Icon as={BsFillCalendarDateFill} mr={1} />
-                                    {popupInfo.eventDate.fromNow()}
-                                </Box>
-
-                                <Box>
-                                    <Text>{popupInfo.description}</Text>
+                                    {popupInfo.time.fromNow()} by{' '}
+                                    {popupInfo.user}
                                 </Box>
 
                                 <Box display="flex" mt="2" alignItems="center">

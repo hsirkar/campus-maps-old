@@ -12,9 +12,9 @@ const sample = Array(15)
     .map(() => ({
         longitude: range(-76.972, -76.93),
         latitude: range(38.977, 39.002),
-        title: lorem.generateWords(4),
+        title: lorem.generateWords(10),
         user: lorem.generateWords(1),
-        description: lorem.generateWords(5),
+        description: lorem.generateWords(25),
         likes: Math.round(range(0, 200)),
         comments: Math.round(range(0, 50)),
         eventDate: dayjs().add(range(-500, 500), 'day'),
