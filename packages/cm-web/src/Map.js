@@ -8,30 +8,36 @@ import ReactMapGL, {
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import sample from './sample';
-import Popup from './Popup';
+import generateSampleData from './generateSampleData';
+import Popup, { channelBadge } from './Popup';
+import Pin from './Pin';
 
 function Map({ mapboxToken }) {
-    const [markers] = React.useState(sample);
+    const [data] = React.useState(generateSampleData(15));
     const [popupInfo, setPopupInfo] = React.useState(null);
+
+    console.log(data);
 
     const pins = React.useMemo(
         () =>
-            markers.map((marker, i) => (
+            data.map((entry, i) => (
                 <Marker
                     key={i}
                     color="red"
-                    longitude={marker.longitude}
-                    latitude={marker.latitude}
+                    longitude={entry.longitude}
+                    latitude={entry.latitude}
                     anchor="top"
                     style={{ cursor: 'pointer' }}
                     onClick={e => {
                         e.originalEvent.stopPropagation();
-                        setPopupInfo(marker);
-                    }}
-                />
+                        setPopupInfo(entry);
+                    }}>
+                    <Pin
+                        color={channelBadge[entry.channel].colorScheme}
+                        icon={channelBadge[entry.channel].icon} />
+                </Marker>
             )),
-        [markers]
+        [data]
     );
 
     return (
@@ -44,7 +50,7 @@ function Map({ mapboxToken }) {
             minZoom={13}
             maxZoom={18}
             style={{ width: '100vw', height: '100vh' }}
-            mapStyle="mapbox://styles/mapbox/streets-v11"
+            mapStyle="mapbox://styles/mapbox/light-v10"
             mapboxAccessToken={mapboxToken}
             attributionControl={false}
             localFontFamily="Inter, sans-serif">
@@ -61,6 +67,7 @@ function Map({ mapboxToken }) {
             {popupInfo && (
                 <Popup popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
             )}
+            
         </ReactMapGL>
     );
 }
