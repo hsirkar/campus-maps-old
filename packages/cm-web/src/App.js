@@ -17,6 +17,7 @@ const MAPBOX_TOKEN =
 
 function App() {
     const [data] = React.useState(generateSampleData(15));
+    const [selected, setSelected] = React.useState(-1);
 
     return (
         <ChakraProvider theme={theme}>
@@ -30,10 +31,10 @@ function App() {
                     <Header />
                 </GridItem>
                 <GridItem area="nav">
-                    <Nav data={data} />
+                    <Nav data={data} selected={selected} setSelected={setSelected} />
                 </GridItem>
                 <GridItem area="main" >
-                    <Map mapboxToken={MAPBOX_TOKEN} />
+                    <Map mapboxToken={MAPBOX_TOKEN} data={data} selected={selected} setSelected={setSelected} />
                 </GridItem>
             </Grid>
         </ChakraProvider>

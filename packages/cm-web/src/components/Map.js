@@ -2,26 +2,16 @@ import * as React from 'react';
 import ReactMapGL, {
     Marker,
     NavigationControl,
-    ScaleControl,
     AttributionControl,
 } from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import generateSampleData from '../generateSampleData';
 import Popup, { channelBadge } from './Popup';
 import Pin from './Pin';
 import Modal from './Modal';
 
-import { useDisclosure } from '@chakra-ui/react';
-
-function Map({ mapboxToken }) {
-    const [data] = React.useState(generateSampleData(15));
-    const [popupInfo, setPopupInfo] = React.useState(null);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-
-    console.log(data);
-
+function Map({ mapboxToken, data, selected, setSelected }) {
     const pins = React.useMemo(
         () =>
             data.map((entry, i) => (
@@ -34,16 +24,16 @@ function Map({ mapboxToken }) {
                     style={{ cursor: 'pointer' }}
                     onClick={e => {
                         e.originalEvent.stopPropagation();
-                        setPopupInfo(entry);
+                        setSelected(i);
                     }}>
                     <Pin
-                        selected={popupInfo && popupInfo.id === entry.id}
+                        selected={i === selected}
                         color={channelBadge[entry.channel].colorScheme}
                         icon={channelBadge[entry.channel].icon}
                     />
                 </Marker>
             )),
-        [data, popupInfo]
+        [data, selected]
     );
 
     return (
@@ -59,7 +49,8 @@ function Map({ mapboxToken }) {
             mapStyle="mapbox://styles/mapbox/light-v10"
             mapboxAccessToken={mapboxToken}
             attributionControl={false}
-            localFontFamily="Inter, sans-serif">
+            localFontFamily="Inter, sans-serif"
+            onClick={() => setSelected(-1)}>
             <AttributionControl
                 customAttribution="&copy; 2022 campus-maps"
                 compact={true}
@@ -69,15 +60,15 @@ function Map({ mapboxToken }) {
 
             {pins}
 
-            {popupInfo && (
+            {/* {popupInfo && (
                 <Popup
                     popupInfo={popupInfo}
                     setPopupInfo={setPopupInfo}
                     onClick={onOpen}
                 />
-            )}
+            )} */}
 
-            <Modal isOpen={isOpen} onClose={onClose} popupInfo={popupInfo} />
+            {/* <Modal isOpen={isOpen} onClose={onClose} popupInfo={popupInfo} /> */}
         </ReactMapGL>
     );
 }
