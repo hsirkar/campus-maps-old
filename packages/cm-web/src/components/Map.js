@@ -8,13 +8,16 @@ import ReactMapGL, {
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import generateSampleData from './generateSampleData';
+import generateSampleData from '../generateSampleData';
 import Popup, { channelBadge } from './Popup';
 import Pin from './Pin';
+import Modal from './Modal';
+import { useDisclosure } from '@chakra-ui/react';
 
 function Map({ mapboxToken }) {
     const [data] = React.useState(generateSampleData(15));
     const [popupInfo, setPopupInfo] = React.useState(null);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     console.log(data);
 
@@ -33,11 +36,13 @@ function Map({ mapboxToken }) {
                         setPopupInfo(entry);
                     }}>
                     <Pin
+                        selected={popupInfo && popupInfo.id === entry.id}
                         color={channelBadge[entry.channel].colorScheme}
-                        icon={channelBadge[entry.channel].icon} />
+                        icon={channelBadge[entry.channel].icon}
+                    />
                 </Marker>
             )),
-        [data]
+        [data, popupInfo]
     );
 
     return (
@@ -65,9 +70,14 @@ function Map({ mapboxToken }) {
             {pins}
 
             {popupInfo && (
-                <Popup popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
+                <Popup
+                    popupInfo={popupInfo}
+                    setPopupInfo={setPopupInfo}
+                    onClick={onOpen}
+                />
             )}
-            
+
+            <Modal isOpen={isOpen} onClose={onClose} popupInfo={popupInfo} />
         </ReactMapGL>
     );
 }

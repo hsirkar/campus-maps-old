@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import theme from './theme';
-import Map from './Map';
+import Map from './components/Map';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
