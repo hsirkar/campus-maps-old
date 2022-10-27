@@ -12,6 +12,7 @@ import generateSampleData from '../generateSampleData';
 import Popup, { channelBadge } from './Popup';
 import Pin from './Pin';
 import Modal from './Modal';
+
 import { useDisclosure } from '@chakra-ui/react';
 
 function Map({ mapboxToken }) {
@@ -54,18 +55,17 @@ function Map({ mapboxToken }) {
             }}
             minZoom={13}
             maxZoom={18}
-            style={{ width: '100vw', height: '100vh' }}
+            style={{ width: '100%', height: '100%' }}
             mapStyle="mapbox://styles/mapbox/light-v10"
             mapboxAccessToken={mapboxToken}
             attributionControl={false}
             localFontFamily="Inter, sans-serif">
-            <NavigationControl position="top-left" />
-            <ScaleControl />
-
             <AttributionControl
                 customAttribution="&copy; 2022 campus-maps"
                 compact={true}
             />
+            <NavigationControl position="bottom-right" />
+
 
             {pins}
 
