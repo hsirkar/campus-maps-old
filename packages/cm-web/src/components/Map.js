@@ -46,7 +46,7 @@ function Map({ mapboxToken, data, selected, setSelected }) {
             minZoom={13}
             maxZoom={18}
             style={{ width: '100%', height: '100%' }}
-            mapStyle="mapbox://styles/mapbox/light-v10"
+            mapStyle="mapbox://styles/mapbox/streets-v11"
             mapboxAccessToken={mapboxToken}
             attributionControl={false}
             localFontFamily="Inter, sans-serif"

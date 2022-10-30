@@ -32,7 +32,7 @@ function generateSampleData(numSamples) {
                     level: Math.round(range(0, 3)),
                 })),
             eventDate: dayjs().add(range(-500, 500), 'day'),
-            time: dayjs().subtract(range(0, 200000), 'min'),
+            time: dayjs().subtract(range(0, 2000), 'hour'),
             visibility: randEl([
                 'Public',
                 'Friends',
