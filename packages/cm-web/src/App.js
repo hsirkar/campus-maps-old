@@ -16,8 +16,20 @@ const MAPBOX_TOKEN =
     'pk.eyJ1IjoicmFrcmlzaCIsImEiOiJjamptczYxOGMzc3dzM3BvbDB0andscXdwIn0.GY-HcAV_MakM6gwzSS17Fg';
 
 function App() {
+    const mapRef = React.useRef();
     const [data] = React.useState(generateSampleData(15));
     const [selected, setSelected] = React.useState(-1);
+
+    React.useEffect(() => {
+        if (selected !== -1) {
+            mapRef.current.easeTo({
+                center: {
+                    lon: data[selected].longitude,
+                    lat: data[selected].latitude,
+                },
+            });
+        }
+    });
 
     return (
         <ChakraProvider theme={theme}>
@@ -25,16 +37,26 @@ function App() {
                 templateAreas={`"header header"
                   "nav main"`}
                 gridTemplateRows={'50px 1fr'}
-                gridTemplateColumns={'340px 1fr'}
+                gridTemplateColumns={'360px 1fr'}
                 minHeight="100vh">
                 <GridItem area="header">
                     <Header />
                 </GridItem>
                 <GridItem area="nav">
-                    <Nav data={data} selected={selected} setSelected={setSelected} />
+                    <Nav
+                        data={data}
+                        selected={selected}
+                        setSelected={setSelected}
+                    />
                 </GridItem>
-                <GridItem area="main" >
-                    <Map mapboxToken={MAPBOX_TOKEN} data={data} selected={selected} setSelected={setSelected} />
+                <GridItem area="main">
+                    <Map
+                        mapboxToken={MAPBOX_TOKEN}
+                        data={data}
+                        mapRef={mapRef}
+                        selected={selected}
+                        setSelected={setSelected}
+                    />
                 </GridItem>
             </Grid>
         </ChakraProvider>

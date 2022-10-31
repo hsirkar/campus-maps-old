@@ -1,4 +1,12 @@
-import { Box, Button, ButtonGroup, Flex, Heading, Input, Spacer, Text, Textarea } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Flex,
+    Heading,
+    Spacer,
+    Text,
+} from '@chakra-ui/react';
 
 function Header() {
     return (
@@ -21,13 +29,15 @@ function Header() {
                 </Heading>
             </Box>
             <Spacer />
-            <Text fontSize="sm">
-                University of Maryland, College Park
-            </Text>
+            <Text fontSize="sm">University of Maryland, College Park</Text>
             <Spacer />
             <ButtonGroup gap="2">
-                <Button size="sm" variant="link">Sign Up</Button>
-                <Button size="sm" variant="link">Log In</Button>
+                <Button size="sm" variant="link">
+                    Sign Up
+                </Button>
+                <Button size="sm" variant="link">
+                    Log In
+                </Button>
             </ButtonGroup>
         </Flex>
     );

@@ -7,11 +7,10 @@ import ReactMapGL, {
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import Popup, { channelBadge } from './Popup';
 import Pin from './Pin';
-import Modal from './Modal';
+import { channels } from '../util';
 
-function Map({ mapboxToken, data, selected, setSelected }) {
+function Map({ mapboxToken, data, selected, setSelected, mapRef }) {
     const pins = React.useMemo(
         () =>
             data.map((entry, i) => (
@@ -28,12 +27,12 @@ function Map({ mapboxToken, data, selected, setSelected }) {
                     }}>
                     <Pin
                         selected={i === selected}
-                        color={channelBadge[entry.channel].colorScheme}
-                        icon={channelBadge[entry.channel].icon}
+                        color={channels[entry.channel].colorScheme}
+                        icon={channels[entry.channel].icon}
                     />
                 </Marker>
             )),
-        [data, selected]
+        [data, selected, setSelected]
     );
 
     return (
@@ -45,30 +44,20 @@ function Map({ mapboxToken, data, selected, setSelected }) {
             }}
             minZoom={13}
             maxZoom={18}
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: '100%', height: '100vh' }}
             mapStyle="mapbox://styles/mapbox/streets-v11"
             mapboxAccessToken={mapboxToken}
             attributionControl={false}
             localFontFamily="Inter, sans-serif"
-            onClick={() => setSelected(-1)}>
+            onClick={() => setSelected(-1)}
+            ref={mapRef}>
             <AttributionControl
                 customAttribution="&copy; 2022 campus-maps"
                 compact={true}
             />
             <NavigationControl position="bottom-right" />
 
-
             {pins}
-
-            {/* {popupInfo && (
-                <Popup
-                    popupInfo={popupInfo}
-                    setPopupInfo={setPopupInfo}
-                    onClick={onOpen}
-                />
-            )} */}
-
-            {/* <Modal isOpen={isOpen} onClose={onClose} popupInfo={popupInfo} /> */}
         </ReactMapGL>
     );
 }

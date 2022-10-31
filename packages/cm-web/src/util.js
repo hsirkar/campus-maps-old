@@ -1,4 +1,4 @@
-import { FcBinoculars, FcLandscape, FcMusic, FcReading } from "react-icons/fc";
+import { FcBinoculars, FcLandscape, FcMusic, FcReading } from 'react-icons/fc';
 
 export const channels = {
     Landscapes: {

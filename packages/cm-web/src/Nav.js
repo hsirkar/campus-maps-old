@@ -1,31 +1,162 @@
-import { Badge, Box, Button, ButtonGroup, Checkbox, Divider, Flex, Heading, HStack, IconButton, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuDivider, MenuItemOption, MenuList, MenuOptionGroup, Stack, Tag, Text } from "@chakra-ui/react";
-import { BsChevronDown } from "react-icons/bs";
+import {
+    Avatar,
+    Box,
+    Button,
+    ButtonGroup,
+    CloseButton,
+    Divider,
+    Flex,
+    Heading,
+    Menu,
+    MenuButton,
+    MenuItemOption,
+    MenuList,
+    MenuOptionGroup,
+    Text,
+    Textarea,
+} from '@chakra-ui/react';
+import { BsExclamationTriangle, BsReply } from 'react-icons/bs';
 
-import { ChevronDownIcon, SearchIcon, StarIcon } from '@chakra-ui/icons'
-import { FaHeart, FaRegHeart, FaSortAmountDown } from "react-icons/fa";
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { FaHeart, FaRegHeart, FaSortAmountDown } from 'react-icons/fa';
 import { FiLayers } from 'react-icons/fi';
-import { BiComment, BiShareAlt } from "react-icons/bi";
-import { channels } from "./util";
-import Pin from "./components/Pin";
+import { BiComment, BiShareAlt } from 'react-icons/bi';
+import { channels } from './util';
+import Pin from './components/Pin';
+import { AiOutlineUser } from 'react-icons/ai';
+import React from 'react';
 
 function Nav(props) {
     return (
         <Box height="100%" p="4" borderRight="1px" borderColor="gray.200">
-            {props.selected === -1 ? <HomeNav  {...props} /> : <DetailView {...props} />}
+            {props.selected === -1 ? (
+                <HomeNav {...props} />
+            ) : (
+                <DetailView {...props} />
+            )}
         </Box>
     );
 }
 
-function DetailView({ data, selected }) {
+function DetailView({ data, selected, setSelected }) {
+    const [liked, setLiked] = React.useState(false);
+    const [textareaFocus, setTextareaFocus] = React.useState(false);
+
+    if (selected === -1) return <Box p="4">Nothing selected</Box>;
+    const d = data[selected];
+
     return (
-        <>
-            <Heading fontSize="lg">{data[selected].title}</Heading>
-        </>
+        <Box>
+            <CloseButton float="right" ml={2} onClick={() => setSelected(-1)} />
+            <Heading fontSize="lg" mb={2}>
+                {d.title}
+            </Heading>
+            <Text color="gray.500" fontSize="sm">
+                {d.time.fromNow()}
+            </Text>
+            <ButtonGroup
+                spacing={1}
+                mt={2}
+                variant="ghost"
+                size="sm"
+                color="gray.600">
+                <Button
+                    color={liked ? 'red.600' : 'gray.600'}
+                    onClick={() => setLiked(!liked)}
+                    fontWeight="400"
+                    leftIcon={liked ? <FaHeart /> : <FaRegHeart />}>
+                    {d.likes + (liked ? 1 : 0)}
+                </Button>
+                <Button fontWeight="400" leftIcon={<BiShareAlt />}>
+                    Share
+                </Button>
+                <Button
+                    color="red.600"
+                    fontWeight={400}
+                    leftIcon={<BsExclamationTriangle />}>
+                    Report
+                </Button>
+            </ButtonGroup>
+            <Divider mt={3} />
+            <Box as="h4" fontSize="md" fontWeight="bold" mt={3}>
+                Comments ({d.comments.length.toString()})
+            </Box>
+
+            <Box>
+                <Textarea
+                    placeholder="Join the discussion..."
+                    fontSize="sm"
+                    mt={3}
+                    resize="none"
+                    rows={textareaFocus ? 4 : 1}
+                    onFocus={() => setTextareaFocus(true)}
+                    onBlur={() => setTextareaFocus(false)}
+                />
+                {d.comments.map((comment, i) => (
+                    <Box
+                        px="4"
+                        py="3"
+                        ml={0}
+                        borderWidth="1px"
+                        borderRadius="lg"
+                        key={i}
+                        mt={2}
+                        fontSize="sm">
+                        <Flex>
+                            <Box>
+                                <Avatar
+                                    size="sm"
+                                    float="left"
+                                    mr={3}
+                                    bg="gray.400"
+                                    icon={<AiOutlineUser fontSize="1.5rem" />}
+                                />
+                            </Box>
+
+                            <Box flex="1">
+                                {comment.text}
+
+                                <Box color="gray.500" fontSize={13} mt={1}>
+                                    {comment.time.fromNow()}
+                                </Box>
+                            </Box>
+                        </Flex>
+
+                        <Box display="flex" mt={3} alignItems="center">
+                            <Button
+                                color={liked ? 'red.600' : 'gray.600'}
+                                fontWeight={liked ? 600 : 400}
+                                leftIcon={liked ? <FaHeart /> : <FaRegHeart />}
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => setLiked(!liked)}>
+                                {comment.likes + (liked ? 1 : 0)}
+                            </Button>
+                            <Button
+                                color="gray.600"
+                                fontWeight={400}
+                                leftIcon={<BsReply />}
+                                size="sm"
+                                variant="ghost">
+                                Reply
+                            </Button>
+                            <Button
+                                color="red.600"
+                                fontWeight={400}
+                                leftIcon={<BsExclamationTriangle />}
+                                size="sm"
+                                variant="ghost">
+                                Report
+                            </Button>
+                        </Box>
+                    </Box>
+                ))}
+            </Box>
+        </Box>
     );
 }
 
-function HomeNav({ data, selected }) {
-
+function HomeNav({ data, selected, setSelected }) {
     return (
         <>
             {/* <InputGroup fontSize="sm">
@@ -36,7 +167,7 @@ function HomeNav({ data, selected }) {
                 <Input fontSize="sm" placeholder="Search..." />
             </InputGroup> */}
 
-            <Flex gap="2" >
+            <Flex gap="2">
                 <Menu closeOnSelect={false}>
                     <MenuButton
                         as={Button}
@@ -49,10 +180,15 @@ function HomeNav({ data, selected }) {
                         rightIcon={<ChevronDownIcon />}>
                         Popular
                     </MenuButton>
-                    <MenuList minWidth='260px' fontSize="0.85rem">
-                        <MenuOptionGroup type='checkbox'>
-                            {[...new Set(data.map(d => d.channel))].map((channel, i) =>
-                                <MenuItemOption key={i} value={i}>{channel}</MenuItemOption>)}
+                    <MenuList minWidth="260px" fontSize="0.85rem">
+                        <MenuOptionGroup type="checkbox">
+                            {[...new Set(data.map(d => d.channel))].map(
+                                (channel, i) => (
+                                    <MenuItemOption key={i} value={i}>
+                                        {channel}
+                                    </MenuItemOption>
+                                )
+                            )}
                         </MenuOptionGroup>
                     </MenuList>
                 </Menu>
@@ -67,26 +203,34 @@ function HomeNav({ data, selected }) {
                         rightIcon={<ChevronDownIcon />}>
                         Trending
                     </MenuButton>
-                    <MenuList minWidth='180px' fontSize="0.85rem">
+                    <MenuList minWidth="180px" fontSize="0.85rem">
                         <MenuOptionGroup defaultValue="trending" type="radio">
-                            <MenuItemOption key="trending" value="trending">Trending</MenuItemOption>
-                            <MenuItemOption key="likes" value="likes">Likes</MenuItemOption>
-                            <MenuItemOption key="date" value="date">Recent</MenuItemOption>
+                            <MenuItemOption key="trending" value="trending">
+                                Trending
+                            </MenuItemOption>
+                            <MenuItemOption key="likes" value="likes">
+                                Likes
+                            </MenuItemOption>
+                            <MenuItemOption key="date" value="date">
+                                Recent
+                            </MenuItemOption>
                         </MenuOptionGroup>
                     </MenuList>
                 </Menu>
             </Flex>
 
-            <Heading
-                pt={4}
-                fontSize="0.75rem"
-                color="teal">
+            <Heading pt={4} fontSize="0.75rem" color="teal">
                 {data.length} results
             </Heading>
 
-            {data.map(d =>
-                <Box key={d.id} px="4" py="3" borderWidth="1px" borderRadius="md" mt={3}>
-
+            {data.map(d => (
+                <Box
+                    key={d.id}
+                    px="4"
+                    py="3"
+                    borderWidth="1px"
+                    borderRadius="md"
+                    mt={3}>
                     <Box
                         width="30px"
                         height="30px"
@@ -94,7 +238,11 @@ function HomeNav({ data, selected }) {
                         float="left"
                         mr={4}
                         mt={6}>
-                        <Pin color={channels[d.channel].colorScheme} icon={channels[d.channel].icon} selected={false} />
+                        <Pin
+                            color={channels[d.channel].colorScheme}
+                            icon={channels[d.channel].icon}
+                            selected={false}
+                        />
                     </Box>
                     {/* <HStack>
                         <Badge
@@ -104,7 +252,12 @@ function HomeNav({ data, selected }) {
                             {d.channel}
                         </Badge>
                     </HStack> */}
-                    <Box as="a" href="#">
+                    <Box
+                        as="a"
+                        href="#"
+                        onClick={() => {
+                            setSelected(d.id);
+                        }}>
                         <Heading
                             noOfLines={2}
                             fontSize="sm"
@@ -146,9 +299,8 @@ function HomeNav({ data, selected }) {
                             Share
                         </Button>
                     </ButtonGroup>
-
                 </Box>
-            )}
+            ))}
         </>
     );
 }
