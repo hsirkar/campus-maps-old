@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
     Avatar,
     Box,
@@ -15,16 +17,17 @@ import {
     Text,
     Textarea,
 } from '@chakra-ui/react';
-import { BsExclamationTriangle, BsReply } from 'react-icons/bs';
 
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { FaHeart, FaRegHeart, FaSortAmountDown } from 'react-icons/fa';
-import { FiLayers } from 'react-icons/fi';
-import { BiComment, BiShareAlt } from 'react-icons/bi';
-import { channels } from './util';
-import Pin from './components/Pin';
 import { AiOutlineUser } from 'react-icons/ai';
-import React from 'react';
+import { BiComment, BiShareAlt } from 'react-icons/bi';
+import { BsExclamationTriangle } from 'react-icons/bs';
+import { FaHeart, FaRegHeart, FaSortAmountDown } from 'react-icons/fa';
+import { HiReply } from 'react-icons/hi';
+import { FiLayers } from 'react-icons/fi';
+
+import { channels } from '../util';
+import Pin from './Pin';
 import Scrollbars from 'react-custom-scrollbars';
 
 function Nav(props) {
@@ -146,7 +149,7 @@ function DetailView({ data, selected, setSelected }) {
                             <Button
                                 color="gray.600"
                                 fontWeight={400}
-                                leftIcon={<BsReply />}
+                                leftIcon={<HiReply />}
                                 size="sm"
                                 variant="ghost">
                                 Reply
@@ -237,22 +240,23 @@ function HomeNav({ data, selected, setSelected }) {
             {data.map(d => (
                 <Box
                     key={d.id}
-                    px="4"
+                    px="3"
                     py="3"
                     borderWidth="1px"
                     borderRadius="md"
                     mt={3}>
                     <Box
-                        width="30px"
-                        height="30px"
+                        width="50px"
+                        height="50px"
                         display="inline-block"
                         float="left"
-                        mr={4}
-                        mt={6}>
+                        mr={1}>
                         <Pin
+                            pin={false}
                             color={channels[d.channel].colorScheme}
                             icon={channels[d.channel].icon}
                             selected={false}
+                            transform="scale(1.35)"
                         />
                     </Box>
                     {/* <HStack>

@@ -1,47 +1,35 @@
-import { Box, Icon, Image } from '@chakra-ui/react';
-import { FaCircle } from 'react-icons/fa';
-import { RiMapPin3Fill } from 'react-icons/ri';
+import { Box, Flex, Icon, Image, scaleFadeConfig } from '@chakra-ui/react';
+import { FaCircle, FaUser } from 'react-icons/fa';
+import { RiMapPin3Fill, RiMapPinFill } from 'react-icons/ri';
 
 // TODO: combine SVGs using Inkspace or other similar tool
-function Pin({ color, icon, selected }) {
+function Pin({ color, icon, selected, pin=true, ...rest }) {
     return (
-        <Box
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                position: 'relative',
-            }}
-            transform={selected ? 'scale(1.25)' : 'none'}>
-            <Icon
-                fontSize="45"
-                as={RiMapPin3Fill}
+        <Flex
+            justifyContent="center"
+            alignItems="center"
+            width="46px"
+            height="46px"
+            position="relative"
+            transform={selected ? 'scale(1.25)' : 'none'}
+            zIndex={selected ? "99" : "9"}
+            {...rest}>
+            {pin && <Icon
+                position="absolute"
+                top="0.5"
                 color="white"
-                position="absolute"
-                filter="drop-shadow(0px 2px 3px rgb(0 0 0 / 0.6))"
-            />
+                fontSize="46"
+                as={RiMapPinFill}
+                filter="drop-shadow(0px 2px 3px rgb(0 0 0 / 0.2))"
+            />}
             <Icon
-                fontSize="30"
-                as={FaCircle}
-                color={`${color}.200`}
                 position="absolute"
-                mb={1}
-                ml={0.37}
+                color={`${color}.200`}
+                fontSize="28"
+                as={FaCircle}
             />
-
-            {typeof icon === 'string' ? (
-                <Box position="absolute" boxSize={19}>
-                    <Image src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f389.svg" />
-                </Box>
-            ) : (
-                <Icon
-                    fontSize="25"
-                    as={icon}
-                    style={{ position: 'absolute', marginBottom: 5 }}
-                    filter="drop-shadow(0px 0px 1px rgb(0 0 0 / 0.4))"
-                />
-            )}
-        </Box>
+            <Icon position="absolute" fontSize="20" as={icon} />
+        </Flex>
     );
 }
 

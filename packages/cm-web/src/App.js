@@ -3,12 +3,13 @@ import * as React from 'react';
 import { Box, ChakraProvider, Grid, GridItem } from '@chakra-ui/react';
 
 import theme from './theme';
+
+import Header from './components/Header';
+import Nav from './components/Nav';
 import Map from './components/Map';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import Header from './Header';
-import Nav from './Nav';
 import generateSampleData from './generateSampleData';
 dayjs.extend(relativeTime);
 
