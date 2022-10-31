@@ -13,8 +13,5 @@
     },
     "scripts": {
         "test": "cd ./packages/cm-web && npm run test"
-    },
-    "dependencies": {
-        "emoji-picker-react": "^4.4.4"
     }
 }

@@ -10,6 +10,7 @@ function Pin({ color, icon, selected }) {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                position: 'relative',
             }}
             transform={selected ? 'scale(1.25)' : 'none'}>
             <Icon

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ChakraProvider, Grid, GridItem } from '@chakra-ui/react';
+import { Box, ChakraProvider, Grid, GridItem } from '@chakra-ui/react';
 
 import theme from './theme';
 import Map from './components/Map';
@@ -33,32 +33,41 @@ function App() {
 
     return (
         <ChakraProvider theme={theme}>
-            <Grid
-                templateAreas={`"header header"
-                  "nav main"`}
-                gridTemplateRows={'50px 1fr'}
-                gridTemplateColumns={'360px 1fr'}
-                minHeight="100vh">
-                <GridItem area="header">
-                    <Header />
-                </GridItem>
-                <GridItem area="nav">
-                    <Nav
-                        data={data}
-                        selected={selected}
-                        setSelected={setSelected}
-                    />
-                </GridItem>
-                <GridItem area="main">
-                    <Map
-                        mapboxToken={MAPBOX_TOKEN}
-                        data={data}
-                        mapRef={mapRef}
-                        selected={selected}
-                        setSelected={setSelected}
-                    />
-                </GridItem>
-            </Grid>
+            <Box
+                position="absolute"
+                left="0"
+                right="0"
+                top="0"
+                bottom="0"
+                overflow="hidden"
+                zIndex="-9999">
+                <Grid
+                    templateAreas={`"header header"
+                      "nav main"`}
+                    gridTemplateRows={'50px 1fr'}
+                    gridTemplateColumns={'max(340px, 20%) 1fr'}
+                    height="100vh">
+                    <GridItem area="header">
+                        <Header />
+                    </GridItem>
+                    <GridItem area="nav">
+                        <Nav
+                            data={data}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                    </GridItem>
+                    <GridItem area="main">
+                        <Map
+                            mapboxToken={MAPBOX_TOKEN}
+                            data={data}
+                            mapRef={mapRef}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                    </GridItem>
+                </Grid>
+            </Box>
         </ChakraProvider>
     );
 }

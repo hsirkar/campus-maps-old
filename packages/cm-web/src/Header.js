@@ -17,7 +17,11 @@ function Header() {
             gap="2"
             px={8}
             borderBottom="1px"
-            borderColor="gray.200">
+            borderColor="gray.200"
+            zIndex="9"
+            boxShadow="base"
+            position="relative"
+            background="white">
             <Box>
                 <Heading
                     as="span"

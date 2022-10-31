@@ -25,15 +25,26 @@ import { channels } from './util';
 import Pin from './components/Pin';
 import { AiOutlineUser } from 'react-icons/ai';
 import React from 'react';
+import Scrollbars from 'react-custom-scrollbars';
 
 function Nav(props) {
     return (
-        <Box height="100%" p="4" borderRight="1px" borderColor="gray.200">
-            {props.selected === -1 ? (
-                <HomeNav {...props} />
-            ) : (
-                <DetailView {...props} />
-            )}
+        <Box
+            position="relative"
+            borderRight="1px"
+            borderColor="gray.200"
+            boxShadow="base"
+            zIndex="999"
+            background="white">
+            <Scrollbars style={{ height: 'calc(100vh - 50px)' }}>
+                <Box p="4">
+                    {props.selected === -1 ? (
+                        <HomeNav {...props} />
+                    ) : (
+                        <DetailView {...props} />
+                    )}
+                </Box>
+            </Scrollbars>
         </Box>
     );
 }
