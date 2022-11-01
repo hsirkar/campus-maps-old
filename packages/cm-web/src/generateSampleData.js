@@ -45,6 +45,9 @@ function generateSampleData(numSamples) {
                 'Study spots',
                 'Parties',
             ]),
+            liked: randEl([true, false]),
+            trending: randEl([true, false]),
+            seen: randEl([true, false]),
         }));
 }
 

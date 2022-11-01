@@ -29,6 +29,9 @@ function Map({ mapboxToken, data, selected, setSelected, mapRef }) {
                         selected={i === selected}
                         color={channels[entry.channel].colorScheme}
                         icon={channels[entry.channel].icon}
+                        unseen={!entry.seen}
+                        trending={entry.trending}
+                        liked={entry.liked}
                     />
                 </Marker>
             )),

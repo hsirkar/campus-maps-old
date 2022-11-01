@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
     Avatar,
     Box,
@@ -14,8 +13,6 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { AiOutlineUser } from 'react-icons/ai';
-import { BiCog, BiLogOut } from 'react-icons/bi';
-import { FaRegHeart } from 'react-icons/fa';
 
 function Header() {
     return (
@@ -46,15 +43,6 @@ function Header() {
                 University of Maryland, College Park
             </Text>
             <Spacer />
-
-            {/* <Avatar
-                size="sm"
-                float="left"
-                mr={3}
-                bg="gray.400"
-                icon={<AiOutlineUser fontSize="1.5rem" />}
-            /> */}
-
             <Menu>
                 <MenuButton
                     as={Button}
@@ -77,23 +65,6 @@ function Header() {
                     <MenuItem>Log out</MenuItem>
                 </MenuList>
             </Menu>
-
-            {/* <ButtonGroup gap="0">
-                <IconButton
-                    icon={<BiBell />}
-                    variant="ghost"
-                    color="gray.500"
-                    fontSize="xl"
-                    borderRadius="full"
-                />
-                <IconButton
-                    icon={<AiOutlineUser />}
-                    variant="ghost"
-                    color="gray.500"
-                    fontSize="xl"
-                    borderRadius="full"
-                />
-            </ButtonGroup> */}
         </Flex>
     );
 }
