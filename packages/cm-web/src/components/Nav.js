@@ -48,6 +48,7 @@ function Nav(props) {
 function DetailView({ data, selected, setSelected }) {
     const [liked, setLiked] = React.useState(false);
     const [textareaFocus, setTextareaFocus] = React.useState(false);
+    const [replyingTo, setReplyingTo] = React.useState(-1);
 
     if (selected === -1) return <Box p="4">Nothing selected</Box>;
     const d = data[selected];
@@ -100,7 +101,7 @@ function DetailView({ data, selected, setSelected }) {
                 </Box>
 
                 <Box>
-                    <Textarea
+                    {replyingTo === -1 && <Textarea
                         placeholder="Join the discussion..."
                         fontSize="sm"
                         mt={3}
@@ -108,7 +109,7 @@ function DetailView({ data, selected, setSelected }) {
                         rows={textareaFocus ? 4 : 1}
                         onFocus={() => setTextareaFocus(true)}
                         onBlur={() => setTextareaFocus(false)}
-                    />
+                    />}
                     {d.comments.map((comment, i) => (
                         <Box
                             px="4"
@@ -158,7 +159,8 @@ function DetailView({ data, selected, setSelected }) {
                                     fontSize="0.85rem"
                                     fontWeight={400}
                                     leftIcon={<HiReply />}
-                                    variant="ghost">
+                                    variant="ghost"
+                                    onClick={() => setReplyingTo(i)}>
                                     Reply
                                 </Button>
                                 <Button
@@ -170,6 +172,22 @@ function DetailView({ data, selected, setSelected }) {
                                     Report
                                 </Button>
                             </ButtonGroup>
+
+                            {replyingTo === i && (
+                                <Textarea
+                                    placeholder="Join the discussion..."
+                                    fontSize="sm"
+                                    mt={3}
+                                    resize="none"
+                                    rows={textareaFocus ? 4 : 1}
+                                    autoFocus={true}
+                                    onFocus={() => setTextareaFocus(true)}
+                                    onBlur={() => {
+                                        setTextareaFocus(false);
+                                        setReplyingTo(-1);
+                                    }}
+                                />
+                            )}
                         </Box>
                     ))}
                 </Box>
