@@ -101,15 +101,17 @@ function DetailView({ data, selected, setSelected }) {
                 </Box>
 
                 <Box>
-                    {replyingTo === -1 && <Textarea
-                        placeholder="Join the discussion..."
-                        fontSize="sm"
-                        mt={3}
-                        resize="none"
-                        rows={textareaFocus ? 4 : 1}
-                        onFocus={() => setTextareaFocus(true)}
-                        onBlur={() => setTextareaFocus(false)}
-                    />}
+                    {replyingTo === -1 && (
+                        <Textarea
+                            placeholder="Join the discussion..."
+                            fontSize="sm"
+                            mt={3}
+                            resize="none"
+                            rows={textareaFocus ? 4 : 1}
+                            onFocus={() => setTextareaFocus(true)}
+                            onBlur={() => setTextareaFocus(false)}
+                        />
+                    )}
                     {d.comments.map((comment, i) => (
                         <Box
                             px="4"

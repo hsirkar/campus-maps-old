@@ -1,5 +1,6 @@
-import dayjs from 'dayjs';
-import { LoremIpsum } from 'lorem-ipsum';
+const dayjs = require('dayjs');
+
+const { LoremIpsum } = require('lorem-ipsum');
 const lorem = new LoremIpsum();
 
 function range(min, max) {
@@ -10,10 +11,11 @@ function randEl(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function generateSampleData(numSamples) {
-    return Array(numSamples)
-        .fill(0)
-        .map((_, i) => ({
+module.exports = () => {
+    const data = { posts: [] };
+
+    for (let i = 0; i < 15; i++) {
+        data.posts.push({
             id: i,
             longitude: range(-76.972, -76.93),
             latitude: range(38.977, 39.002),
@@ -48,7 +50,8 @@ function generateSampleData(numSamples) {
             liked: randEl([true, false]),
             trending: randEl([true, false]),
             seen: randEl([true, false]),
-        }));
-}
+        });
+    }
 
-export default generateSampleData;
+    return data;
+};

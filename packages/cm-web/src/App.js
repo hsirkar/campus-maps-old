@@ -10,7 +10,6 @@ import Map from './components/Map';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import generateSampleData from './generateSampleData';
 dayjs.extend(relativeTime);
 
 const MAPBOX_TOKEN =
@@ -18,7 +17,7 @@ const MAPBOX_TOKEN =
 
 function App() {
     const mapRef = React.useRef();
-    const [data] = React.useState(generateSampleData(15));
+    const [data] = React.useState([]);
     const [selected, setSelected] = React.useState(-1);
 
     React.useEffect(() => {
