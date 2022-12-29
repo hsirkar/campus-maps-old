@@ -1,3 +1,5 @@
+## ⚠️ This repo is now archived, and is replaced by [this one](https://github.com/hsirkar/campus-maps-skeleton) ⚠️
+
 # Campus Maps
 
 ![Node.js CI](https://github.com/hsirkar/campus-maps/actions/workflows/node.js.yml/badge.svg)
